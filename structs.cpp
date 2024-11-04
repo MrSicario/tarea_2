@@ -108,7 +108,7 @@ void SplayTree::zig(Node* x) {// Zig || Zag
 void SplayTree::zig_zig(Node* x) {// Zig-zig || Zag-zag
     Node* y = x->root;
     Node* z = y->root;
-    if (y->left = x) {// Zig-zig
+    if (y->left == x) {// Zig-zig
         // Node* A = x->left;
         Node* B = x->right;
         Node* C = y->right;
@@ -286,7 +286,6 @@ int main() {
     // Insert values
     tree.insert(50);
     tree.insert(30);
-    cout << "Inserted 30\n";
     tree.insert(70);
     tree.insert(20);
     tree.insert(40);
