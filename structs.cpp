@@ -1,19 +1,21 @@
 #include <iostream>
+#include <memory>
 
 using namespace std;
 
 struct Node {
     int key;
-    Node* root;
-    Node* left;
-    Node* right;
+    std::shared_ptr<Node> root;
+    std::shared_ptr<Node> left;
+    std::shared_ptr<Node> right;
 
-    Node(int key) : key(key), root(nullptr), left(nullptr), right(nullptr) {}
+    Node(int key) : key(key), root(nullptr), left(nullptr), right(nullptr) {};
+    ~Node(){};
 };
 
 class BinTree {
     private:
-        Node* root;
+        shared_ptr<Node> root;
     public:
         BinTree() : root(nullptr) {};
         void insert(int key);
@@ -22,14 +24,15 @@ class BinTree {
 
 void BinTree::insert(int key) {
     if (this->root == nullptr) {
-        this->root = new Node(key);
+        shared_ptr<Node> new_node (new Node(key));
+        this->root = new_node;
         return;
     }
-    Node* at = this->root;
+    shared_ptr<Node> at = this->root;
     while (at != nullptr) {
         if (key < at->key) {
             if (at->left == nullptr) {
-                Node* new_node = new Node(key);
+                shared_ptr<Node> new_node (new Node(key));
                 new_node->root = at;
                 at->left = new_node;
                 return;
@@ -38,7 +41,7 @@ void BinTree::insert(int key) {
         }
         else if (key > at->key) {
             if (at->right == nullptr) {
-                Node* new_node = new Node(key);
+                shared_ptr<Node> new_node (new Node(key));
                 new_node->root = at;
                 at->right = new_node;
                 return;
@@ -51,7 +54,7 @@ void BinTree::insert(int key) {
 }
 
 bool BinTree::search(int key) {
-    Node* at = this->root;
+    shared_ptr<Node> at = this->root;
     while (at != nullptr) {
         if (at->key == key)
             return true;
@@ -65,27 +68,27 @@ bool BinTree::search(int key) {
 
 class SplayTree {
     private:
-        Node* root;
+        shared_ptr<Node> root;
         
-        void zig(Node*);
-        void zig_zig(Node*);
-        void zig_zag(Node*);
+        void zig(shared_ptr<Node>);
+        void zig_zig(shared_ptr<Node>);
+        void zig_zag(shared_ptr<Node>);
 
-        void splay(Node*);
+        void splay(shared_ptr<Node>);
     
     public:
         SplayTree() : root(nullptr) {};
-        SplayTree(Node* tree) : root(tree) {};
+        SplayTree(shared_ptr<Node> tree) : root(tree) {};
 
         void insert(int val);
         bool search(int val);
 };
 
-void SplayTree::zig(Node* x) {// Zig || Zag
-    Node* y = x->root;
+void SplayTree::zig(shared_ptr<Node> x) {// Zig || Zag
+    shared_ptr<Node> y = x->root;
     if (y->left == x) {// Zig
         // Node* A = x->left;
-        Node* B = x->right;
+        shared_ptr<Node> B = x->right;
         // Node* C = y->right;
         x->root = nullptr;
         x->right = y;
@@ -95,7 +98,7 @@ void SplayTree::zig(Node* x) {// Zig || Zag
     }
     else {// Zag
         // Node* A = y->left;
-        Node* B = x->left;
+        shared_ptr<Node> B = x->left;
         // Node* C = x->right;
         x->root = nullptr;
         x->left = y;
@@ -105,13 +108,13 @@ void SplayTree::zig(Node* x) {// Zig || Zag
     }
 }
 
-void SplayTree::zig_zig(Node* x) {// Zig-zig || Zag-zag
-    Node* y = x->root;
-    Node* z = y->root;
+void SplayTree::zig_zig(shared_ptr<Node> x) {// Zig-zig || Zag-zag
+    shared_ptr<Node> y = x->root;
+    shared_ptr<Node> z = y->root;
     if (y->left == x) {// Zig-zig
         // Node* A = x->left;
-        Node* B = x->right;
-        Node* C = y->right;
+        shared_ptr<Node> B = x->right;
+        shared_ptr<Node> C = y->right;
         // Node* D = z->right;
 
         x->root = z->root;
@@ -133,8 +136,8 @@ void SplayTree::zig_zig(Node* x) {// Zig-zig || Zag-zag
         if (C != nullptr) C->root = z;
     } else {// Zag-zag
         //Node* A = z->left;
-        Node* B = y->left;
-        Node* C = x->left;
+        shared_ptr<Node> B = y->left;
+        shared_ptr<Node> C = x->left;
         //Node* D = x->right;
 
         x->root = z->root;
@@ -157,13 +160,13 @@ void SplayTree::zig_zig(Node* x) {// Zig-zig || Zag-zag
     }
 }
 
-void SplayTree::zig_zag(Node* x) {// Zig-zag || Zag-zig
-    Node* y = x->root;
-    Node* z = y->root;
+void SplayTree::zig_zag(shared_ptr<Node> x) {// Zig-zag || Zag-zig
+    shared_ptr<Node> y = x->root;
+    shared_ptr<Node> z = y->root;
     if (y->right == x) {// Zig-zag
         //Node* A = y->left;
-        Node* B = x->left;
-        Node* C = x->right;
+        shared_ptr<Node> B = x->left;
+        shared_ptr<Node> C = x->right;
         //Node* D = z-> right;
 
         x->root = z->root;
@@ -184,10 +187,10 @@ void SplayTree::zig_zag(Node* x) {// Zig-zag || Zag-zig
         if (B != nullptr) B->root = y;
         if (C != nullptr) C->root = z;
     } else {// Zag-zig
-        Node* A = z->left;
-        Node* B = x->left;
-        Node* C = x->right;
-        Node* D = y->right;
+        //shared_ptr<Node> A = z->left;
+        shared_ptr<Node> B = x->left;
+        shared_ptr<Node> C = x->right;
+        //shared_ptr<Node> D = y->right;
 
         x->root = z->root;
         x->left = z;
@@ -209,10 +212,10 @@ void SplayTree::zig_zag(Node* x) {// Zig-zag || Zag-zig
     }
 }
 
-void SplayTree::splay(Node* x) {
+void SplayTree::splay(shared_ptr<Node> x) {
     while (x->root != nullptr) {
-        Node* y = x->root;
-        Node* z = y->root;
+        shared_ptr<Node> y = x->root;
+        shared_ptr<Node> z = y->root;
         if (z == nullptr) zig(x);
         else if (z->left == y && y->left == x) zig_zig(x);
         else if (z->right == y && y->right == x) zig_zig(x);
@@ -223,14 +226,15 @@ void SplayTree::splay(Node* x) {
 
 void SplayTree::insert(int key) {
     if (this->root == nullptr) {
-        this->root = new Node(key);
+        shared_ptr<Node> new_node (new Node(key));
+        this->root = new_node;
         return;
     }
-    Node* at = this->root;
+    shared_ptr<Node> at = this->root;
     while (at != nullptr) {
         if (key < at->key) {
             if (at->left == nullptr) {
-                Node* new_node = new Node(key);
+                shared_ptr<Node> new_node (new Node(key));
                 new_node->root = at;
                 at->left = new_node;
                 splay(new_node);
@@ -240,7 +244,7 @@ void SplayTree::insert(int key) {
         }
         else if (key > at->key) {
             if (at->right == nullptr) {
-                Node* new_node = new Node(key);
+                shared_ptr<Node> new_node (new Node(key));
                 new_node->root = at;
                 at->right = new_node;
                 splay(new_node);
@@ -256,9 +260,9 @@ void SplayTree::insert(int key) {
 }
 
 bool SplayTree::search(int key) {
-    Node* ret = nullptr;
-    Node* prev = nullptr;
-    Node* at = this->root;
+    shared_ptr<Node> ret = nullptr;
+    shared_ptr<Node> prev = nullptr;
+    shared_ptr<Node> at = this->root;
     while (at != nullptr) {
         prev = at;
         if (at->key == key) {
