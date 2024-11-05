@@ -5,7 +5,6 @@
 namespace bt {
     struct Node {
         int key;
-        std::weak_ptr<Node> parent;
         std::shared_ptr<Node> left;
         std::shared_ptr<Node> right;
 
@@ -32,7 +31,6 @@ namespace bt {
             if (key < at->key) {
                 if (at->left == nullptr) {
                     at->left = std::make_shared<Node>(Node(key));
-                    at->left->parent = at;
                     return;
                 }
                 else at = at->left;
@@ -40,7 +38,6 @@ namespace bt {
             else if (key > at->key) {
                 if (at->right == nullptr) {
                     at->right = std::make_shared<Node>(Node(key));
-                    at->right->parent = at;
                     return;
                 }
                 else at = at->right;
