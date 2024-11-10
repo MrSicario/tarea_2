@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-namespace BinTree {
+namespace binTree {
     struct Node {
         int key;
         std::shared_ptr<Node> left;
