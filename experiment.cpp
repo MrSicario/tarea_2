@@ -13,9 +13,6 @@ using namespace std;
 typedef binTree::BinTree BinTree;
 typedef splayTree::SplayTree SplayTree;
 
-constexpr bool DEBUG = false; // Cambiar a false cuando no se está corriendo debug.
-
-
 vector<int> create_random_data(int n) {
   random_device r;
   seed_seq      seed{r(), r(), r(), r(), r(), r(), r(), r()};
@@ -28,31 +25,9 @@ vector<int> create_random_data(int n) {
   return v;
 }
 
-// Main de la tarea.
-int main(int argv, char* argc[]) {
-    if (DEBUG) {
-        binTree::test_binTree();
-        splayTree::test_splayTree();
-    }
-
-    cout << "Experimento 1: \n";
-
-    int N = static_cast<int>(pow(10,6)*stof(argc[1]));
-    int M = N*100;
-
-    vector<int> elements(N);
-    vector<int> search(M);
-    elements = create_random_data(N);
-    for (int i : elements ){
-        for(int j=0; j<100;j++){
-            search.push_back(i);
-        }
-    }
-
-    auto rng = default_random_engine {};
-    shuffle(begin(search), end(search), rng);
-
-
+// Experimento 1
+void exp1(vector<int> elements, vector<int> search) {
+        cout << "Experimento 1: \n";
     BinTree binTree;
     SplayTree splayTree;
 
@@ -67,7 +42,6 @@ int main(int argv, char* argc[]) {
     auto duration = chrono::duration_cast<chrono::milliseconds>(stop-start);
     cout << "Binary Tree: " <<duration.count()/(float)1000 << " seconds\n";
 
-
     auto start2 = chrono::high_resolution_clock::now();
     for (int i : elements) {
         splayTree.insert(i);
@@ -78,6 +52,11 @@ int main(int argv, char* argc[]) {
     auto stop2 = chrono::high_resolution_clock::now();
     auto duration2 = chrono::duration_cast<chrono::milliseconds>(stop2-start2);
     cout << "Splay Tree: " <<duration2.count()/(float)1000 << " seconds\n";
+}
+// Experimento 2
+void exp2(vector<int> elements, vector<int> search, int M, int N) {
+
+    auto rng = default_random_engine {};
 
     cout << "Experimento 2: \n";
 
@@ -114,7 +93,9 @@ int main(int argv, char* argc[]) {
     auto stop4 = chrono::high_resolution_clock::now();
     auto duration4 = chrono::duration_cast<chrono::milliseconds>(stop4-start4);
     cout << "Splay Tree: " <<duration4.count()/(float)1000 << " seconds\n";
-
+}
+// Experimento 3
+void exp3(vector<int> elements, vector<int> search) {
     cout << "Experimento 3: \n";
     sort(elements.begin(), elements.end());
 
@@ -143,5 +124,31 @@ int main(int argv, char* argc[]) {
     auto stop6 = chrono::high_resolution_clock::now();
     auto duration6 = chrono::duration_cast<chrono::milliseconds>(stop6-start6);
     cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
+}
+// Experimento 4
+void exp4() {
 
+}
+
+// Main de la tarea.
+int main(int argv, char* argc[]) {
+
+    int N = static_cast<int>(pow(10,6)*stof(argc[1]));
+    int M = N*100;
+
+    vector<int> elements(N);
+    vector<int> search(M);
+    elements = create_random_data(N);
+    for (int i : elements ){
+        for(int j=0; j<100;j++){
+            search.push_back(i);
+        }
+    }
+    auto rng = default_random_engine {};
+    shuffle(begin(search), end(search), rng);
+    
+    exp1(elements, search);
+    exp2(elements, search, M, N);
+    exp3(elements, search);
+    exp4();
 }
