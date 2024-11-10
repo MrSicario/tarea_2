@@ -52,8 +52,8 @@ void exp1(vector<int> elements, vector<int> search) {
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
-    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
-    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     auto startSplayTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
@@ -63,8 +63,8 @@ void exp1(vector<int> elements, vector<int> search) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
-    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
-    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
+    duration = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 // Experimento 2
 void exp2(vector<int> elements, vector<int> search, int N, int M) {
@@ -91,8 +91,8 @@ void exp2(vector<int> elements, vector<int> search, int N, int M) {
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
-    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
-    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = chrono::high_resolution_clock::now();
@@ -103,8 +103,8 @@ void exp2(vector<int> elements, vector<int> search, int N, int M) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
-    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
-    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
+    duration = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 // Experimento 3
 void exp3(vector<int> elements, vector<int> search) {
@@ -122,8 +122,8 @@ void exp3(vector<int> elements, vector<int> search) {
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
-    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
-    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = chrono::high_resolution_clock::now();
@@ -134,8 +134,8 @@ void exp3(vector<int> elements, vector<int> search) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
-    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
-    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
+    duration = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 // Experimento 4
 void exp4(vector<int> elements, vector<int> search, int N, int M) {
@@ -163,8 +163,8 @@ void exp4(vector<int> elements, vector<int> search, int N, int M) {
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
-    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
-    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
+    auto duration = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = chrono::high_resolution_clock::now();
@@ -175,8 +175,8 @@ void exp4(vector<int> elements, vector<int> search, int N, int M) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
-    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
-    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
+    duration = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 
 // Main de la tarea.
