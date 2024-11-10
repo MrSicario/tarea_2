@@ -133,8 +133,17 @@ void exp4() {
 // Main de la tarea.
 int main(int argv, char* argc[]) {
 
-    int N = static_cast<int>(pow(10,6)*stof(argc[1]));
-    int M = N*100;
+    int N, M, experiment;
+
+    if (argv == 2) {
+        experiment = 0;
+        N = static_cast<int>(pow(10,6)*stof(argc[1]));
+        M = N*100;
+    } else {
+        experiment = atoi(argc[1]);
+        N = static_cast<int>(pow(10,6)*stof(argc[2]));
+        M = N*100;
+    }
 
     vector<int> elements(N);
     vector<int> search(M);
@@ -146,9 +155,36 @@ int main(int argv, char* argc[]) {
     }
     auto rng = default_random_engine {};
     shuffle(begin(search), end(search), rng);
+
+    switch (experiment) {
+    case 0:
+        exp1(elements, search);
+        exp2(elements, search, M, N);
+        exp3(elements, search);
+        exp4();
+        break;
     
-    exp1(elements, search);
-    //exp2(elements, search, M, N);
-    //exp3(elements, search);
-    //exp4();
+    case 1:
+        exp1(elements, search);
+        break;
+
+    case 2:
+        exp2(elements, search, M, N);
+        break;
+
+    case 3:
+        exp3(elements, search);
+        break;
+
+    case 4:
+        exp4();
+        break;
+
+    default:
+        exp1(elements, search);
+        exp2(elements, search, M, N);
+        exp3(elements, search);
+        exp4();
+        break;
+    }
 }
