@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 
-namespace st {
+namespace SplayTree {
     struct Node {
         int key;
         std::weak_ptr<Node> parent;

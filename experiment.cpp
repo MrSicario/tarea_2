@@ -9,7 +9,7 @@ constexpr bool DEBUG = true; // Cambiar a false cuando no se está corriendo deb
 // Main de la tarea.
 int main() {
     if (DEBUG) {
-        bt::test_binTree();
-        st::test_splayTree();
+        BinTree::test_binTree();
+        SplayTree::test_splayTree();
     }
 }
