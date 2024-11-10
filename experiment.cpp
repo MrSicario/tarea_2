@@ -148,7 +148,7 @@ int main(int argv, char* argc[]) {
     shuffle(begin(search), end(search), rng);
     
     exp1(elements, search);
-    exp2(elements, search, M, N);
-    exp3(elements, search);
-    exp4();
+    //exp2(elements, search, M, N);
+    //exp3(elements, search);
+    //exp4();
 }
