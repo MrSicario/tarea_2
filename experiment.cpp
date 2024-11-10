@@ -25,109 +25,158 @@ vector<int> create_random_data(int n) {
   return v;
 }
 
+double sum_N(int N) {
+    int sum=0;
+    for (int i=0; i<N; i++) {
+        sum += (i+1)*(i+1);
+    }
+    return 1/sum;
+}
+
+double f(int i, int N) {
+    double C = sum_N(N);
+    return C/((i+1)*(i+1));
+}
+
 // Experimento 1
 void exp1(vector<int> elements, vector<int> search) {
-        cout << "Experimento 1: \n";
+    cout << "Experimento 1: \n";
     BinTree binTree;
     SplayTree splayTree;
 
-    auto start = chrono::high_resolution_clock::now();
+    auto startBinTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
         binTree.insert(i);
     }
     for(int i : search){
         binTree.search(i);
     }
-    auto stop = chrono::high_resolution_clock::now();
-    auto duration = chrono::duration_cast<chrono::milliseconds>(stop-start);
-    cout << "Binary Tree: " <<duration.count()/(float)1000 << " seconds\n";
+    auto stopBinTree = chrono::high_resolution_clock::now();
+    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
 
-    auto start2 = chrono::high_resolution_clock::now();
+    auto startSplayTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
         splayTree.insert(i);
     }
     for(int i : search) {
         splayTree.search(i);
     }
-    auto stop2 = chrono::high_resolution_clock::now();
-    auto duration2 = chrono::duration_cast<chrono::milliseconds>(stop2-start2);
-    cout << "Splay Tree: " <<duration2.count()/(float)1000 << " seconds\n";
+    auto stopSplayTree = chrono::high_resolution_clock::now();
+    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
 }
 // Experimento 2
-void exp2(vector<int> elements, vector<int> search, int M, int N) {
-
+void exp2(vector<int> elements, vector<int> search, int N, int M) {
+    cout << "Experimento 2: \n";
     auto rng = default_random_engine {};
 
-    cout << "Experimento 2: \n";
-
-    vector<int> search_f(M);
+    vector<int> search_f;
     for(int i =0; i<N; i++) {
-        for(int j = 0; j< ((float)1/3)/((i+1)*(i+1))*M; j++) {
+        int t = floor(f(i, N)*M);
+        for(int j = 0; j< t; j++) {
             search_f.push_back(elements[i]);
         }
     }
     shuffle(begin(search_f), end(search_f), rng);
 
-    BinTree binTree2;
-    SplayTree splayTree2;
+    BinTree binTree;
+    SplayTree splayTree;
 
-    auto start3 = chrono::high_resolution_clock::now();
+    auto startBinTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
-        binTree2.insert(i);
+        binTree.insert(i);
     }
-    for(int i : search){
-        binTree2.search(i);
+    for(int i : search_f){
+        binTree.search(i);
     }
-    auto stop3 = chrono::high_resolution_clock::now();
-    auto duration3 = chrono::duration_cast<chrono::milliseconds>(stop3-start3);
-    cout << "Binary Tree: " <<duration3.count()/(float)1000 << " seconds\n";
+    auto stopBinTree = chrono::high_resolution_clock::now();
+    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
 
 
-    auto start4 = chrono::high_resolution_clock::now();
+    auto startSplayTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
-        splayTree2.insert(i);
+        splayTree.insert(i);
     }
-    for(int i : search) {
-        splayTree2.search(i);
+    for(int i : search_f) {
+        splayTree.search(i);
     }
-    auto stop4 = chrono::high_resolution_clock::now();
-    auto duration4 = chrono::duration_cast<chrono::milliseconds>(stop4-start4);
-    cout << "Splay Tree: " <<duration4.count()/(float)1000 << " seconds\n";
+    auto stopSplayTree = chrono::high_resolution_clock::now();
+    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
 }
 // Experimento 3
 void exp3(vector<int> elements, vector<int> search) {
     cout << "Experimento 3: \n";
     sort(elements.begin(), elements.end());
 
-    BinTree binTree3;
-    SplayTree splayTree3;
+    BinTree binTree;
+    SplayTree splayTree;
 
-    auto start5 = chrono::high_resolution_clock::now();
+    auto startBinTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
-        binTree3.insert(i);
+        binTree.insert(i);
     }
     for(int i : search){
-        binTree3.search(i);
+        binTree.search(i);
     }
-    auto stop5 = chrono::high_resolution_clock::now();
-    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stop5-start5);
+    auto stopBinTree = chrono::high_resolution_clock::now();
+    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
     cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
 
 
-    auto start6 = chrono::high_resolution_clock::now();
+    auto startSplayTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
-        splayTree3.insert(i);
+        splayTree.insert(i);
     }
     for(int i : search) {
-        splayTree3.search(i);
+        splayTree.search(i);
     }
-    auto stop6 = chrono::high_resolution_clock::now();
-    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stop6-start6);
+    auto stopSplayTree = chrono::high_resolution_clock::now();
+    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
     cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
 }
 // Experimento 4
-void exp4() {
+void exp4(vector<int> elements, vector<int> search, int N, int M) {
+    cout << "Experimento 4: \n";
+    sort(elements.begin(), elements.end());
+    auto rng = default_random_engine {};
 
+    vector<int> search_f;
+    for(int i =0; i<N; i++) {
+        int t = floor(f(i, N)*M);
+        for(int j = 0; j<t; j++) {
+            search_f.push_back(elements[i]);
+        }
+    }
+    shuffle(begin(search_f), end(search_f), rng);
+
+    BinTree binTree;
+    SplayTree splayTree;
+
+    auto startBinTree = chrono::high_resolution_clock::now();
+    for (int i : elements) {
+        binTree.insert(i);
+    }
+    for(int i : search_f){
+        binTree.search(i);
+    }
+    auto stopBinTree = chrono::high_resolution_clock::now();
+    auto duration5 = chrono::duration_cast<chrono::milliseconds>(stopBinTree-startBinTree);
+    cout << "Binary Tree: " <<duration5.count()/(float)1000 << " seconds\n";
+
+
+    auto startSplayTree = chrono::high_resolution_clock::now();
+    for (int i : elements) {
+        splayTree.insert(i);
+    }
+    for(int i : search_f) {
+        splayTree.search(i);
+    }
+    auto stopSplayTree = chrono::high_resolution_clock::now();
+    auto duration6 = chrono::duration_cast<chrono::milliseconds>(stopSplayTree-startSplayTree);
+    cout << "Splay Tree: " <<duration6.count()/(float)1000 << " seconds\n";
 }
 
 // Main de la tarea.
@@ -159,9 +208,9 @@ int main(int argv, char* argc[]) {
     switch (experiment) {
     case 0:
         exp1(elements, search);
-        exp2(elements, search, M, N);
+        exp2(elements, search, N, M);
         exp3(elements, search);
-        exp4();
+        exp4(elements, search, N, M);
         break;
     
     case 1:
@@ -177,14 +226,14 @@ int main(int argv, char* argc[]) {
         break;
 
     case 4:
-        exp4();
+        exp4(elements, search, N, M);
         break;
 
     default:
         exp1(elements, search);
         exp2(elements, search, M, N);
         exp3(elements, search);
-        exp4();
+        exp4(elements, search, N, M);
         break;
     }
 }

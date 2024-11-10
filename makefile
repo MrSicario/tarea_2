@@ -1,5 +1,4 @@
 CXX = clang++
-MULT = 0.1
 
 .PHONY: clean
 
