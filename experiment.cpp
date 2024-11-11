@@ -103,7 +103,7 @@ void exp2(vector<int> A, int N, int M) {
     }
     auto stopBinTree = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stopBinTree-startBinTree);
-    print("Binary Tree: {0} seconds", duration.count()/(float)1000);
+    print("Binary Tree: {0} seconds\n", duration.count()/(float)1000);
 
 
     auto startSplayTree = high_resolution_clock::now();
