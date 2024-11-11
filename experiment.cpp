@@ -16,6 +16,8 @@ using std::print,
 typedef binTree::BinTree BinTree;
 typedef splayTree::SplayTree SplayTree;
 
+auto rng = std::default_random_engine {};
+
 vector<int> create_random_data(int n) {
     std::random_device r;
     std::seed_seq      seed{r(), r(), r(), r(), r(), r(), r(), r()};
@@ -26,7 +28,7 @@ vector<int> create_random_data(int n) {
     return v;
 }
 
-double sum_N(int N) {
+double get_c(int N) {
     int sum=0;
     for (int i=0; i<N; i++) {
         sum += (i+1)*(i+1);
@@ -48,7 +50,6 @@ void exp1(vector<int> A, int M) {
             B.push_back(i);
         }
     }
-    auto rng = std::default_random_engine {};
     shuffle(begin(B), end(B), rng);
     print("Realizando pruebas...\n");
     BinTree binTree;
@@ -74,15 +75,16 @@ void exp1(vector<int> A, int M) {
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
     print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+
+    return;
 }
 // Experimento 2
 void exp2(vector<int> A, int N, int M) {
     print("Experimento 2: \n");
-    auto rng = std::default_random_engine {};
     print("Preparando arreglos...\n");
     
     vector<int> B(M);
-    double c = sum_N(N);
+    double c = get_c(N);
     for(int i=0; i<N; i++) {
         int t = floor(f(i, c)*M);
         for(int j = 0; j<t; j++) {
@@ -116,11 +118,12 @@ void exp2(vector<int> A, int N, int M) {
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
     print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+
+    return;
 }
 // Experimento 3
 void exp3(vector<int> A, int M) {
     print("Experimento 3: \n");
-    print("Preparando arreglos...\n");
     print("Preparando arreglos...\n");
     vector<int> B(M);
     for (int i : A ){
@@ -128,7 +131,6 @@ void exp3(vector<int> A, int M) {
             B.push_back(i);
         }
     }
-    auto rng = std::default_random_engine {};
     shuffle(begin(B), end(B), rng);
     sort(A.begin(), A.end());
     print("Realizando pruebas...\n");
@@ -157,15 +159,16 @@ void exp3(vector<int> A, int M) {
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
     print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+
+    return;
 }
 // Experimento 4
 void exp4(vector<int> A, int N, int M) {
     print("Experimento 4: \n");
     print("Preparando arreglos...\n");
     vector<int> C = A;
-    double c = sum_N(N);
     sort(C.begin(), C.end());
-    auto rng = std::default_random_engine {};
+    double c = get_c(N);
     vector<int> B(M);
     for(int i=0; i<N; i++) {
         int t = floor(f(i, c)*M);
@@ -200,6 +203,8 @@ void exp4(vector<int> A, int N, int M) {
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
     print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+
+    return;
 }
 
 // Main de la tarea.
