@@ -1,3 +1,11 @@
+## Requerimientos
+
+* Compilador compatible con C++23.
+* Clang y make opcionalmente para utilizar el `makefile`
+    * Se puede editar el archivo para utilizar otro compilador compatible.
+
+## Instrucciones
+
 El programa se corre con ```./experiment.o [exp] [mult]```
 
 * `exp` es un int que especifica que experimento correr, entre 0 y 4, donde 0 es correr todos y [1-4]

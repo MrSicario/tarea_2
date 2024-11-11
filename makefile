@@ -46,7 +46,7 @@ all: 1 2 3 4 5 6 7 8 9 10 clean
 	@./experiment.o $(EXP) 1
 
 experiment.o: experiment.cpp
-	@$(CXX) experiment.cpp -o experiment.o
+	@$(CXX) experiment.cpp -std=c++23 -o experiment.o
 
 clean:
 	@rm -f experiment.o
