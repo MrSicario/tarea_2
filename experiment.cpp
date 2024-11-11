@@ -43,7 +43,7 @@ void exp1(vector<int> elements, vector<int> search) {
     cout << "Experimento 1: \n";
     BinTree binTree;
     SplayTree splayTree;
-
+    cout << "Realizando pruebas..." << endl;
     auto startBinTree = chrono::high_resolution_clock::now();
     for (int i : elements) {
         binTree.insert(i);
@@ -67,19 +67,19 @@ void exp1(vector<int> elements, vector<int> search) {
     cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 // Experimento 2
-void exp2(vector<int> elements, vector<int> search, int N, int M) {
+void exp2(vector<int> elements, int N, int M) {
     cout << "Experimento 2: \n";
     auto rng = default_random_engine {};
-
-    vector<int> search_f;
+    cout << "Preparando arreglos..." << endl;
+    vector<int> search;
     for(int i =0; i<N; i++) {
         int t = floor(f(i, N)*M);
-        for(int j = 0; j< t; j++) {
-            search_f.push_back(elements[i]);
+        for(int j = 0; j<t; j++) {
+            search.push_back(elements[i]);
         }
     }
-    shuffle(begin(search_f), end(search_f), rng);
-
+    shuffle(begin(search), end(search), rng);
+    cout << "Realizando pruebas..." << endl;
     BinTree binTree;
     SplayTree splayTree;
 
@@ -87,7 +87,7 @@ void exp2(vector<int> elements, vector<int> search, int N, int M) {
     for (int i : elements) {
         binTree.insert(i);
     }
-    for(int i : search_f){
+    for(int i : search){
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
@@ -99,7 +99,7 @@ void exp2(vector<int> elements, vector<int> search, int N, int M) {
     for (int i : elements) {
         splayTree.insert(i);
     }
-    for(int i : search_f) {
+    for(int i : search) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
@@ -109,8 +109,9 @@ void exp2(vector<int> elements, vector<int> search, int N, int M) {
 // Experimento 3
 void exp3(vector<int> elements, vector<int> search) {
     cout << "Experimento 3: \n";
+    cout << "Preparando arreglos..." << endl;
     sort(elements.begin(), elements.end());
-
+    cout << "Realizando pruebas..." << endl;
     BinTree binTree;
     SplayTree splayTree;
 
@@ -138,20 +139,20 @@ void exp3(vector<int> elements, vector<int> search) {
     cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 }
 // Experimento 4
-void exp4(vector<int> elements, vector<int> search, int N, int M) {
+void exp4(vector<int> elements, int N, int M) {
     cout << "Experimento 4: \n";
+    cout << "Preparando arreglos..." << endl;
     sort(elements.begin(), elements.end());
     auto rng = default_random_engine {};
-
-    vector<int> search_f;
+    vector<int> search;
     for(int i =0; i<N; i++) {
         int t = floor(f(i, N)*M);
         for(int j = 0; j<t; j++) {
-            search_f.push_back(elements[i]);
+            search.push_back(elements[i]);
         }
     }
-    shuffle(begin(search_f), end(search_f), rng);
-
+    shuffle(begin(search), end(search), rng);
+    cout << "Realizando pruebas..." << endl;
     BinTree binTree;
     SplayTree splayTree;
 
@@ -159,7 +160,7 @@ void exp4(vector<int> elements, vector<int> search, int N, int M) {
     for (int i : elements) {
         binTree.insert(i);
     }
-    for(int i : search_f){
+    for(int i : search){
         binTree.search(i);
     }
     auto stopBinTree = chrono::high_resolution_clock::now();
@@ -171,7 +172,7 @@ void exp4(vector<int> elements, vector<int> search, int N, int M) {
     for (int i : elements) {
         splayTree.insert(i);
     }
-    for(int i : search_f) {
+    for(int i : search) {
         splayTree.search(i);
     }
     auto stopSplayTree = chrono::high_resolution_clock::now();
@@ -208,9 +209,9 @@ int main(int argv, char* argc[]) {
     switch (experiment) {
     case 0:
         exp1(elements, search);
-        exp2(elements, search, N, M);
+        exp2(elements, N, M);
         exp3(elements, search);
-        exp4(elements, search, N, M);
+        exp4(elements, N, M);
         break;
     
     case 1:
@@ -218,7 +219,7 @@ int main(int argv, char* argc[]) {
         break;
 
     case 2:
-        exp2(elements, search, M, N);
+        exp2(elements, M, N);
         break;
 
     case 3:
@@ -226,14 +227,14 @@ int main(int argv, char* argc[]) {
         break;
 
     case 4:
-        exp4(elements, search, N, M);
+        exp4(elements, N, M);
         break;
 
     default:
         exp1(elements, search);
-        exp2(elements, search, M, N);
+        exp2(elements, M, N);
         exp3(elements, search);
-        exp4(elements, search, N, M);
+        exp4(elements, N, M);
         break;
     }
 }
