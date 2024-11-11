@@ -4,11 +4,11 @@
 #include <vector>     // vector
 #include <iterator>   // begin, end, and ostream_iterator
 #include <functional> // bind
-#include <print>
+#include <iostream>
 #include "bin_tree.hpp"
 #include "splay_tree.hpp"
 
-using std::print,
+using std::cout,
     std::vector, 
     std::chrono::high_resolution_clock, 
     std::chrono::duration_cast,
@@ -42,8 +42,8 @@ double f(int i, double c) {
 
 // Experimento 1
 void exp1(vector<int> A, int M) {
-    print("Experimento 1:\n");
-    print("Preparando arreglos...\n");
+    cout << "Experimento 1:\n";
+    cout << "Preparando arreglos...\n";
     vector<int> B(M);
     for (int i : A ){
         for(int j=0; j<100;j++){
@@ -51,7 +51,7 @@ void exp1(vector<int> A, int M) {
         }
     }
     shuffle(begin(B), end(B), rng);
-    print("Realizando pruebas...\n");
+    cout << "Realizando pruebas...\n";
     BinTree binTree;
     SplayTree splayTree;
     auto startBinTree = high_resolution_clock::now();
@@ -63,7 +63,7 @@ void exp1(vector<int> A, int M) {
     }
     auto stopBinTree = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stopBinTree-startBinTree);
-    print("Binary Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     auto startSplayTree = high_resolution_clock::now();
     for (int i : A) {
@@ -74,14 +74,14 @@ void exp1(vector<int> A, int M) {
     }
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
-    print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     return;
 }
 // Experimento 2
 void exp2(vector<int> A, int N, int M) {
-    print("Experimento 2: \n");
-    print("Preparando arreglos...\n");
+    cout << "Experimento 2: \n";
+    cout << "Preparando arreglos...\n";
     
     vector<int> B(M);
     double c = get_c(N);
@@ -92,7 +92,7 @@ void exp2(vector<int> A, int N, int M) {
         }
     }
     shuffle(begin(B), end(B), rng);
-    print("Realizando pruebas...\n");
+    cout << "Realizando pruebas...\n";
     BinTree binTree;
     SplayTree splayTree;
 
@@ -105,7 +105,7 @@ void exp2(vector<int> A, int N, int M) {
     }
     auto stopBinTree = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stopBinTree-startBinTree);
-    print("Binary Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = high_resolution_clock::now();
@@ -117,14 +117,14 @@ void exp2(vector<int> A, int N, int M) {
     }
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
-    print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     return;
 }
 // Experimento 3
 void exp3(vector<int> A, int M) {
-    print("Experimento 3: \n");
-    print("Preparando arreglos...\n");
+    cout << "Experimento 3: \n";
+    cout << "Preparando arreglos...\n";
     vector<int> B(M);
     for (int i : A ){
         for(int j=0; j<100;j++){
@@ -133,7 +133,7 @@ void exp3(vector<int> A, int M) {
     }
     shuffle(begin(B), end(B), rng);
     sort(A.begin(), A.end());
-    print("Realizando pruebas...\n");
+    cout << "Realizando pruebas...\n";
     BinTree binTree;
     SplayTree splayTree;
 
@@ -146,7 +146,7 @@ void exp3(vector<int> A, int M) {
     }
     auto stopBinTree = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stopBinTree-startBinTree);
-    print("Binary Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = high_resolution_clock::now();
@@ -158,14 +158,14 @@ void exp3(vector<int> A, int M) {
     }
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
-    print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     return;
 }
 // Experimento 4
 void exp4(vector<int> A, int N, int M) {
-    print("Experimento 4: \n");
-    print("Preparando arreglos...\n");
+    cout << "Experimento 4: \n";
+    cout << "Preparando arreglos...\n";
     vector<int> C = A;
     sort(C.begin(), C.end());
     double c = get_c(N);
@@ -177,7 +177,7 @@ void exp4(vector<int> A, int N, int M) {
         }
     }
     shuffle(begin(B), end(B), rng);
-    print("Realizando pruebas...\n");
+    cout << "Realizando pruebas...\n";
     BinTree binTree;
     SplayTree splayTree;
 
@@ -190,7 +190,7 @@ void exp4(vector<int> A, int N, int M) {
     }
     auto stopBinTree = high_resolution_clock::now();
     auto duration = duration_cast<milliseconds>(stopBinTree-startBinTree);
-    print("Binary Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Binary Tree: " << duration.count()/(float)1000 << " seconds\n";
 
 
     auto startSplayTree = high_resolution_clock::now();
@@ -202,7 +202,7 @@ void exp4(vector<int> A, int N, int M) {
     }
     auto stopSplayTree = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stopSplayTree-startSplayTree);
-    print("Splay Tree: {0} seconds\n", duration.count()/(float)1000);
+    cout << "Splay Tree: " << duration.count()/(float)1000 << " seconds\n";
 
     return;
 }
@@ -228,13 +228,6 @@ int main(int argv, char* argc[]) {
     A = create_random_data(N);
 
     switch (experiment) {
-    case 0:
-        exp1(A, M);
-        exp2(A, N, M);
-        exp3(A, M);
-        exp4(A, N, M);
-        break;
-    
     case 1:
         exp1(A, M);
         break;
