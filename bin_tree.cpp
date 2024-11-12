@@ -11,6 +11,17 @@ namespace binTree {
         Node(int key) : key(key), left(nullptr), right(nullptr) {};
         ~Node(){};
     };
+
+    BinTree::~BinTree() {
+        while (!this->stack.empty()) {
+            std::shared_ptr<Node> node = this->stack.top();
+            this->stack.pop();
+            node->left = nullptr;
+            node->right = nullptr;
+            node.reset();
+        }
+    }
+
     /** 
      * 
      * Inserta la llave ingresada en el A.B.B.
@@ -22,6 +33,7 @@ namespace binTree {
     void BinTree::insert(int key) {
         if (this->root == nullptr) {
             this->root = std::make_shared<Node>(Node(key));
+            this->stack.push(this->root);
             return;
         }
         std::shared_ptr<Node> at = this->root;
@@ -29,6 +41,7 @@ namespace binTree {
             if (key < at->key) {
                 if (at->left == nullptr) {
                     at->left = std::make_shared<Node>(Node(key));
+                    this->stack.push(at->left);
                     return;
                 }
                 else at = at->left;
@@ -36,6 +49,7 @@ namespace binTree {
             else if (key > at->key) {
                 if (at->right == nullptr) {
                     at->right = std::make_shared<Node>(Node(key));
+                    this->stack.push(at->right);
                     return;
                 }
                 else at = at->right;

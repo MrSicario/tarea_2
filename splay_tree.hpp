@@ -7,7 +7,7 @@ namespace splayTree {
     class SplayTree {
         private:
             std::shared_ptr<Node> root;
-            std::stack<std::shared_ptr<Node>> stck;
+            std::stack<std::shared_ptr<Node>> stack;
             void zig(std::shared_ptr<Node>);
             void zag(std::shared_ptr<Node>);
             void zig_zig(std::shared_ptr<Node>);
