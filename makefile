@@ -3,6 +3,8 @@ EXP = 0
 
 .PHONY: clean
 
+.SILENT: bin_tree.o splay_tree.o
+
 all: 1 2 3 4 5 6 7 8 9 10 clean
 
 1: experiment.o
@@ -45,8 +47,8 @@ all: 1 2 3 4 5 6 7 8 9 10 clean
 	@echo "Corriendo experimento con 10^6 * 1"
 	@./experiment.o $(EXP) 1
 
-experiment.o: experiment.cpp
-	@$(CXX) experiment.cpp -std=c++23 -o experiment.o
+experiment.o: experiment.cpp bin_tree.o splay_tree.o
+	@$(CXX) experiment.cpp -o experiment.o bin_tree.o splay_tree.o
 
 clean:
-	@rm -f experiment.o
+	@rm -f experiment.o bin_tree.o splay_tree.o
