@@ -1,5 +1,6 @@
 #include <iostream>
 #include <memory>
+#include <stack>
 #include "splay_tree.hpp"
 
 namespace splayTree {
@@ -12,6 +13,15 @@ namespace splayTree {
         Node(int key) : key(key), left(nullptr), right(nullptr) {};
         ~Node(){};
     };
+    SplayTree::~SplayTree() {
+        while(!this->stck.empty()) {
+            std::shared_ptr<Node> node = stck.top();
+            stck.pop();
+            node->left = nullptr;
+            node->right = nullptr;
+            node.reset();
+        }
+    }
     /**
      * 
      * Operación Zig
@@ -182,6 +192,7 @@ namespace splayTree {
     void SplayTree::insert(int key) {
         if (this->root == nullptr) {
             this->root = std::make_shared<Node>(Node(key));
+            this->stck.push(this->root);
             return;
         }
         std::shared_ptr<Node> at = this->root;
@@ -190,6 +201,7 @@ namespace splayTree {
                 if (at->left == nullptr) {
                     at->left = std::make_shared<Node>(Node(key));
                     at->left->parent = (std::weak_ptr<Node>) at;
+                    this->stck.push(at->left);
                     splay(at->left);
                     return;
                 }
@@ -199,6 +211,7 @@ namespace splayTree {
                 if (at->right == nullptr) {
                     at->right = std::make_shared<Node>(Node(key));
                     at->right->parent = (std::weak_ptr<Node>) at;
+                    this->stck.push(at->right);
                     splay(at->right);
                     return;
                 }
